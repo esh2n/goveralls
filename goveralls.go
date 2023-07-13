@@ -489,20 +489,7 @@ func process() error {
 					return nil
 				}
 			}
-		Files:
-			for _, file := range j.SourceFiles {
-				for _, pattern := range patterns {
-					match, err := filepath.Match(pattern, file.Name)
-					if err != nil {
-						return err
-					}
-					if match {
-						fmt.Printf("ignoring %s\n", file.Name)
-						continue Files
-					}
-				}
-				files = append(files, file)
-			}
+			files = append(files, findSourceFile(j.SourceFiles, fileName))
 			return nil
 		})
 		if err != nil {
@@ -569,6 +556,16 @@ func process() error {
 	}
 	fmt.Println(response.Message)
 	fmt.Println(response.URL)
+	return nil
+}
+
+// findSourceFile finds a source file with the given name in the source file slice.
+func findSourceFile(sourceFiles []*SourceFile, fileName string) *SourceFile {
+	for _, file := range sourceFiles {
+		if file.Name == fileName {
+			return file
+		}
+	}
 	return nil
 }
 
