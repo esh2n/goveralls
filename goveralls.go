@@ -471,19 +471,42 @@ func process() error {
 			patterns[i] = strings.TrimSpace(pattern)
 		}
 		var files []*SourceFile
-	Files:
-		for _, file := range j.SourceFiles {
+		err := filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if info.IsDir() {
+				return nil
+			}
+			fileName := strings.TrimPrefix(path, "./")
 			for _, pattern := range patterns {
-				match, err := filepath.Match(pattern, file.Name)
+				match, err := filepath.Match(pattern, fileName)
 				if err != nil {
 					return err
 				}
 				if match {
-					fmt.Printf("ignoring %s\n", file.Name)
-					continue Files
+					fmt.Printf("ignoring %s\n", fileName)
+					return nil
 				}
 			}
-			files = append(files, file)
+		Files:
+			for _, file := range j.SourceFiles {
+				for _, pattern := range patterns {
+					match, err := filepath.Match(pattern, file.Name)
+					if err != nil {
+						return err
+					}
+					if match {
+						fmt.Printf("ignoring %s\n", file.Name)
+						continue Files
+					}
+				}
+				files = append(files, file)
+			}
+			return nil
+		})
+		if err != nil {
+			return err
 		}
 		j.SourceFiles = files
 	}
