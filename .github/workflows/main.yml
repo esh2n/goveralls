@@ -49,7 +49,7 @@ jobs:
         uses: actions/setup-go@v4
       - name: finish
         run: |
-          go run github.com/mattn/goveralls -parallel-finish
+          go run github.com/esh2n/goverall -parallel-finish
         env:
           COVERALLS_TOKEN: ${{ github.token }}
           GIT_BRANCH: ${{ github.head_ref }}

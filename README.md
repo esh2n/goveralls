@@ -1,6 +1,8 @@
 goveralls
 =========
 
+> fork from github.com/mattn/goverall@latest
+
 [Go](http://golang.org) integration for [Coveralls.io](http://coveralls.io)
 continuous code coverage tracking system.
 
@@ -9,7 +11,7 @@ continuous code coverage tracking system.
 `goveralls` requires a working Go installation (Go-1.13 or higher).
 
 ```bash
-$ go install github.com/mattn/goveralls@latest
+$ go install github.com/esh2n/goverall@latest
 ```
 
 
@@ -64,7 +66,7 @@ jobs:
       run: |
         go test -race -covermode atomic -coverprofile=covprofile ./...
     - name: Install goveralls
-      run: go install github.com/mattn/goveralls@latest
+      run: go install github.com/esh2n/goverall@latest
     - name: Send coverage
       env:
         COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -89,7 +91,7 @@ language: go
 go:
   - tip
 before_install:
-  - go install github.com/mattn/goveralls@latest
+  - go install github.com/esh2n/goverall@latest
 script:
   - $GOPATH/bin/goveralls -service=travis-ci
 ```
@@ -103,7 +105,7 @@ language: go
 go:
   - tip
 before_install:
-  - go install github.com/mattn/goveralls@latest
+  - go install github.com/esh2n/goverall@latest
 script:
   - $GOPATH/bin/goveralls -service=travis-pro
 ```
@@ -132,7 +134,7 @@ env:
 ### For others:
 
 ```
-$ go install github.com/mattn/goveralls@latest
+$ go install github.com/esh2n/goverall@latest
 $ go test -covermode=count -coverprofile=profile.cov
 $ goveralls -coverprofile=profile.cov -service=travis-ci
 ```
@@ -148,7 +150,7 @@ COVERALLS_TOKEN=your_token_goes_here
 Replace the `go test` line in your `Commands` with these lines:
 
 ```
-$ go install github.com/mattn/goveralls@latest
+$ go install github.com/esh2n/goverall@latest
 $ goveralls -service drone.io
 ```
 
@@ -170,7 +172,7 @@ In your `circle.yml` add the following commands under the `test` section.
 ```yml
 test:
   pre:
-    - go install github.com/mattn/goveralls@latest
+    - go install github.com/esh2n/goverall@latest
   override:
     - go test -v -cover -race -coverprofile=/home/ubuntu/coverage.out
   post:
@@ -192,7 +194,7 @@ More instructions on how to do this can be found in the [Semaphore documentation
 Replace the `go test` line in your `Commands` with these lines:
 
 ```
-$ go install github.com/mattn/goveralls@latest
+$ go install github.com/esh2n/goverall@latest
 $ goveralls -service semaphore
 ```
 
@@ -246,7 +248,7 @@ COVERALLS_TOKEN=your_token_goes_here
 Setup build steps:
 
 ```
-$ go install github.com/mattn/goveralls@latest
+$ go install github.com/esh2n/goverall@latest
 $ export PULL_REQUEST_NUMBER=%teamcity.build.branch%
 $ goveralls -service teamcity -jobid %teamcity.build.id% -jobnumber %build.number%
 ```
@@ -273,7 +275,7 @@ test:
   when: always
   script:
     - go test -covermode atomic -coverprofile=coverage.txt ./...
-    - go install github.com/mattn/goveralls@latest
+    - go install github.com/esh2n/goverall@latest
     - goveralls -service=gitlab -coverprofile=coverage.txt
 ```
 

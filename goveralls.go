@@ -279,7 +279,7 @@ func processParallelFinish(jobID, token string) error {
 		// XXX: It looks that Coveralls is under maintenance.
 		// Coveralls serves the maintenance page as a static HTML hosting,
 		// and the maintenance page doesn't accept POST method.
-		// See https://github.com/mattn/goveralls/issues/204
+		// See https://github.com/esh2n/goverall/issues/204
 		if res.StatusCode == http.StatusMethodNotAllowed {
 			fmt.Println("it looks that Coveralls is under maintenance. visit https://status.coveralls.io/")
 			return nil
@@ -550,7 +550,7 @@ func process() error {
 		// XXX: It looks that Coveralls is under maintenance.
 		// Coveralls serves the maintenance page as a static HTML hosting,
 		// and the maintenance page doesn't accept POST method.
-		// See https://github.com/mattn/goveralls/issues/204
+		// See https://github.com/esh2n/goverall/issues/204
 		if res.StatusCode == http.StatusMethodNotAllowed {
 			fmt.Println("it looks that Coveralls is under maintenance. visit https://status.coveralls.io/")
 			return nil
